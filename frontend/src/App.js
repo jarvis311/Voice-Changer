@@ -33,7 +33,7 @@ import { ToastContainer } from 'react-toastify';
 import Error from './pages/Error/Error';
 let token = 'dskjkjn'
 function App() {
-    axios.defaults.baseURL = "http://localhost:2020/"
+    axios.defaults.baseURL = "http://3.108.235.200:2020/"
     const ProtectedRoute = ({ redirectPath = "/" }) => {
         if (!token) {
             return <Navigate to={redirectPath} replace />
