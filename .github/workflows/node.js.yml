@@ -29,16 +29,17 @@ jobs:
 
     - name: Install Backend Dependencies
       run: npm ci
-      working-directory: ./backend 
+      working-directory: ./backend  # Adjust the path based on your project structure
 
     - name: Run Backend Tests
       run: npm test
       working-directory: ./backend
-      
+
     - name: Install Frontend Dependencies
       run: |
         cd frontend
         npm ci
+      working-directory: ./frontend  # Adjust the path based on your project structure
 
     - name: Run Frontend Tests
       run: |
@@ -53,7 +54,7 @@ jobs:
         # Add deployment steps for backend (e.g., copying files to server)
 
         # Frontend Deployment
-        cd ../frontend  # Adjust the path based on your frontend location
+        cd ../frontend  # Adjust the path based on your project structure
         npm run build
         # Add deployment steps for frontend (e.g., copying files to server)
 
