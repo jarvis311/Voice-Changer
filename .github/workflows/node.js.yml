@@ -1,4 +1,4 @@
-name: CI/CD-Voice-Changer
+name: CI/CD-MERN-Stack
 
 on:
   push:
@@ -12,6 +12,11 @@ jobs:
       matrix:
         node-version: [16.x]
 
+    env:
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      EC2_USER: ${{ secrets.EC2_USER }}
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -22,13 +27,37 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - name: Install Dependencies
-      run: npm ci
-
-    - name: Run Tests
-      run: npm test
-
-    - name: Build and Deploy (Replace with your deployment steps)
+    - name: Install Backend Dependencies
       run: |
+        cd backend
+        npm ci
+
+    - name: Run Backend Tests
+      run: |
+        cd backend
+        npm test
+
+    - name: Install Frontend Dependencies
+      run: |
+        cd frontend
+        npm ci
+
+    - name: Run Frontend Tests
+      run: |
+        cd frontend
+        npm test
+
+    - name: Build and Deploy
+      run: |
+        # Backend Deployment
+        cd backend
         npm run build
-        # Add deployment steps here, for example, deploying to a server or cloud platform
+        # Add deployment steps for backend (e.g., copying files to server)
+
+        # Frontend Deployment
+        cd ../frontend
+        npm run build
+        # Add deployment steps for frontend (e.g., copying files to server)
+
+        # Example: Deploy to EC2
+        ssh -i ${{ secrets.PRIVATE_KEY }} ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} 'bash -s' < deploy.sh
