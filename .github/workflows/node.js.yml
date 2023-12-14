@@ -28,34 +28,32 @@ jobs:
         cache: 'npm'
 
     - name: Install Backend Dependencies
-      run: |
-        cd backend
-        npm ci
+      run: npm ci
+      working-directory: ./backend 
 
     - name: Run Backend Tests
-      run: |
-        cd /Voice-Changer/backend
-        npm test
-
+      run: npm test
+      working-directory: ./backend
+      
     - name: Install Frontend Dependencies
       run: |
-        cd /Voice-Changer/frontend
+        cd frontend
         npm ci
 
     - name: Run Frontend Tests
       run: |
-        cd /Voice-Changer/frontend
+        cd frontend
         npm test
 
     - name: Build and Deploy
       run: |
         # Backend Deployment
-        cd /Voice-Changer/backend
+        cd backend
         npm run build
         # Add deployment steps for backend (e.g., copying files to server)
 
         # Frontend Deployment
-        cd /Voice-Changer/frontend
+        cd ../frontend  # Adjust the path based on your frontend location
         npm run build
         # Add deployment steps for frontend (e.g., copying files to server)
 
