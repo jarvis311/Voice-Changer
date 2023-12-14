@@ -34,28 +34,28 @@ jobs:
 
     - name: Run Backend Tests
       run: |
-        cd backend
+        cd /Voice-Changer/backend
         npm test
 
     - name: Install Frontend Dependencies
       run: |
-        cd frontend
+        cd /Voice-Changer/frontend
         npm ci
 
     - name: Run Frontend Tests
       run: |
-        cd frontend
+        cd /Voice-Changer/frontend
         npm test
 
     - name: Build and Deploy
       run: |
         # Backend Deployment
-        cd backend
+        cd /Voice-Changer/backend
         npm run build
         # Add deployment steps for backend (e.g., copying files to server)
 
         # Frontend Deployment
-        cd ../frontend
+        cd /Voice-Changer/frontend
         npm run build
         # Add deployment steps for frontend (e.g., copying files to server)
 
